@@ -52,12 +52,12 @@ const Header = (props) => {
                 fontSize: "23px",
                 fontFamily: "cursive",
                 color: "#452529",
-                marginRight: "30px",
+                marginRight: "25px",
               }}
               href="#home"
               onClick={()=>setvalues()}
             >
-              Add Movie
+              Add Movies
             </Nav.Link>
 
             <Form inline>
@@ -71,7 +71,7 @@ const Header = (props) => {
               <DropdownButton
                 as={ButtonGroup}
                 key="1"
-                className="mr-2 my-2"
+                className="mr-1 my-2"
                 variant="light"
                 title="Choose By Rating"
               >
