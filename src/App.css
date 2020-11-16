@@ -1,0 +1,10 @@
+
+
+.btnd:active,
+.btnd:focus,
+.btnd:focus:active {
+  background-image: none;
+  outline: 0;
+  box-shadow: none;
+}
+
