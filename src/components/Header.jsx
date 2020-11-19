@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Navbar,
   Nav,
@@ -15,17 +15,18 @@ const Header = (props) => {
   const SearchByKey = () => {
     props.Search(tit.current.value);
   };
-  const setvalues=()=>{
-   let name=prompt('movie name')
-   let desc=prompt('movie description')
-   let rating=prompt('movie rating')
-   let url=prompt("link of movie image")
-   props.AddToMovieList(name,desc,rating,url)
-
-
-
-
-  }
+  const setvalues = () => {
+    let name = prompt("movie name");
+    let desc = prompt("movie description");
+    let rating = prompt("movie rating");
+    let url = prompt("link of movie image");
+    props.AddToMovieList(name, desc, rating, url);
+  };
+  const [x, setx] = useState("Choose By Rating");
+  const handleClick = (y) => {
+    props.SearchR(y.target.innerHTML)
+    setx(`Rating : ${props.Rating}`);
+  };
 
   return (
     <div>
@@ -55,7 +56,7 @@ const Header = (props) => {
                 marginRight: "25px",
               }}
               href="#home"
-              onClick={()=>setvalues()}
+              onClick={() => setvalues()}
             >
               Add Movies
             </Nav.Link>
@@ -73,11 +74,15 @@ const Header = (props) => {
                 key="1"
                 className="mr-1 my-2"
                 variant="light"
-                title="Choose By Rating"
+                title={x}
               >
                 {[1, 2, 3, 4, 5].map((e) => (
                   <div key={e}>
-                    <Dropdown.Item key={e} eventKey={e} onClick={(y)=>{props.SearchR(y.target.innerHTML)}}>
+                    <Dropdown.Item
+                      key={e}
+                      eventKey={e}
+                      onClick={(y) => handleClick(y)}
+                    >
                       {e}
                     </Dropdown.Item>
                   </div>

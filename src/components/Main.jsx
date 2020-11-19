@@ -4,7 +4,6 @@ const Main = (props) => {
     return ( 
         <div className='d-flex mx-3 my-5 flex-wrap'>
 
-{console.log((props.Rating))}
 {props.Movies.filter(e=>e.rating>=props.Rating && e.name.toUpperCase().includes(props.Keyword.toUpperCase())).map(el => <Cards key={el.id} Movie={el}/>) }           
              
        </div>
