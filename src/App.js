@@ -1,12 +1,15 @@
 import "./App.css";
+import React from 'react'
+
 import Header from "./components/Header";
 import Main from "./components/Main";
-import { React, useState } from "react";
-
+import {  useState } from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 function App() {
   const [MovieList, setMovieList] = useState([
     {
       id: "1",
+      trailer: "https://www.youtube.com/embed/ywloQClYYGI",
       name: "Antebellum",
       desc:
         "Successful author Veronica Henley finds herself trapped in a horrifying reality and must uncover the mind-bending mystery before it's too late.",
@@ -16,6 +19,7 @@ function App() {
     },
     {
       id: "2",
+      trailer: "https://www.youtube.com/embed/Ub9EikTkrTk",
       name: "Sniper: Assassin's End",
       desc:
         "Legendary sniper Thomas Beckett and his son, Special Ops Sniper Brandon Beckett, are on the run from the CIA, Russian Mercenaries, and a Yakuza-trained assassin with sniper skills that rival both legendary sharp shooters.",
@@ -25,6 +29,7 @@ function App() {
     },
     {
       id: "3",
+      trailer: "https://www.youtube.com/embed/jKCj3XuPG8M",
       name: "Bad Boys for Life",
       desc:
         "The Bad Boys Mike Lowrey and Marcus Burnett are back together for one last ride in the highly anticipated Bad Boys for Life.",
@@ -34,6 +39,7 @@ function App() {
     },
     {
       id: "4",
+      trailer: "https://www.youtube.com/embed/VfjoofUEcy0",
       name: "Escape from Pretoria",
       desc:
         "Based on the real-life prison break of two political captives, Escape From Pretoria is a race-against-time thriller set in the tumultuous apartheid days of South Africa.",
@@ -43,6 +49,7 @@ function App() {
     },
     {
       id: "5",
+      trailer: "https://www.youtube.com/embed/WHXxVmeGQUc",
       name: "The Irishman",
       desc:
         "A mob hitman recalls his possible involvement with the slaying of Jimmy Hoffa.",
@@ -52,6 +59,7 @@ function App() {
     },
     {
       id: "6",
+      trailer: "https://www.youtube.com/embed/km_L0v3C0ms",
       name: "Rambo: Last Blood",
       desc:
         "Rambo must confront his past and unearth his ruthless combat skills to exact revenge in a final mission.",
@@ -61,21 +69,58 @@ function App() {
     },
   ]);
   const [Keyword, setKeyword] = useState("");
-  const [Rating, setRating] = useState(0);
+  const [Rating, setRating] = useState("0");
   const Search = (word) => setKeyword(word);
-  const SearchR =  (el) =>{setRating(el)}
+  const SearchR = (el) => {
+    setRating(el);
+  };
   const AddToMovieList = (name, desc, rating, url) =>
     setMovieList([...MovieList, { name, desc, rating, url }]);
+
+
+  const Trailer = ({match}) => {
+    const trailer = MovieList.find(({ name }) => name === match.params.Ntitle);
+
+    return (
+      <div>
+        <p className='d-flex flex-column my-5 mx-auto align-items-center'>
+    <h1 className='m-3 '>{trailer.name}</h1>
+          <iframe
+            width="853"
+            height="480"
+            src={trailer.trailer}
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+          <h4 style={{textAlign:'center', margin:70}}>{trailer.desc}</h4>
+          
+          
+        </p>{" "}
+       
+      </div>
+    );
+  }
   return (
-    <div className="App">
-      <Header
-        AddToMovieList={AddToMovieList}
-        Search={Search}
-        SearchR={SearchR}
-        Rating={Rating}
-      />
-      <Main Movies={MovieList} Keyword={Keyword} Rating={Rating} />
-    </div>
+    <Router>
+      <div className="App">
+        <Header
+          AddToMovieList={AddToMovieList}
+          Search={Search}
+          SearchR={SearchR}
+          Rating={Rating}
+        />
+        
+          <Route
+            exact
+            path="/movie-app"
+            render={() => (
+              <Main Movies={MovieList} Keyword={Keyword} Rating={Rating} />
+            )}
+          />
+          <Route path="/movie-app/:Ntitle" component={Trailer} />
+      </div>
+    </Router>
   );
 }
 

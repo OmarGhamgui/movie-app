@@ -9,7 +9,7 @@ import {
   ButtonGroup,
   Dropdown,
 } from "react-bootstrap";
-
+import {Link} from 'react-router-dom'
 const Header = (props) => {
   const tit = useRef("");
   const SearchByKey = () => {
@@ -23,31 +23,28 @@ const Header = (props) => {
     props.AddToMovieList(name, desc, rating, url);
   };
   const [x, setx] = useState("Choose By Rating");
-  const handleClick = (y) => {
-    props.SearchR(y.target.innerHTML)
-    setx(`Rating : ${props.Rating}`);
-  };
-
+  useEffect((y) => {
+    setx(`Rating : ${props.Rating}`)
+  }); 
   return (
     <div>
       <>
         <Navbar bg="danger" expand="lg">
-          <img
-            height="5%"
-            width="4%"
+         <Link to='/movie-app' style={{width:50}} > <img
+            height="100%"
+            width="100%"
             className="mr-sm-3"
             src="https://seeklogo.net/wp-content/uploads/2017/06/fox-movies-logo.png"
             alt=""
-          />
+          /></Link>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav
-              className="mr-auto ml-5"
+            <Link to="/movie-app" style={{textDecoration:'none',color: 'inherit'}}><Nav
+              className="mr-3 ml-5"
               style={{ fontSize: "23px", fontFamily: "cursive" }}
             >
-              {" "}
               Home of Newest Movies
-            </Nav>
+            </Nav></Link>
             <Nav.Link
               style={{
                 fontSize: "23px",
@@ -60,7 +57,6 @@ const Header = (props) => {
             >
               Add Movies
             </Nav.Link>
-
             <Form inline>
               <FormControl
                 style={{ width: 500 }}
@@ -69,25 +65,48 @@ const Header = (props) => {
                 className="mr-sm-3 btnd my-2"
                 ref={tit}
               />
+              {x==="Rating : 0"?
               <DropdownButton
                 as={ButtonGroup}
                 key="1"
                 className="mr-1 my-2"
                 variant="light"
-                title={x}
+                title={"Choose By Rating"}
               >
                 {[1, 2, 3, 4, 5].map((e) => (
                   <div key={e}>
                     <Dropdown.Item
                       key={e}
                       eventKey={e}
-                      onClick={(y) => handleClick(y)}
+                      onClick={(y) =>{props.SearchR(y.target.innerHTML)
+                        }}
                     >
                       {e}
                     </Dropdown.Item>
                   </div>
                 ))}
-              </DropdownButton>
+              </DropdownButton>:
+              <DropdownButton
+              as={ButtonGroup}
+              key="1"
+              className="mr-5 my-2"
+              variant="light"
+              title={x}
+            >
+              {[1, 2, 3, 4, 5].map((e) => (
+                <div key={e}>
+                  <Dropdown.Item
+                    key={e}
+                    eventKey={e}
+                    onClick={(y) =>{props.SearchR(y.target.innerHTML)
+                      }}
+                  >
+                    {e}
+                  </Dropdown.Item>
+                </div>
+              ))}
+            </DropdownButton>
+              }
               <Button onClick={SearchByKey} variant="light">
                 Search
               </Button>{" "}
@@ -98,5 +117,4 @@ const Header = (props) => {
     </div>
   );
 };
-
 export default Header;

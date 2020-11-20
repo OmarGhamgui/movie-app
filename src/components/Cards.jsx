@@ -1,5 +1,6 @@
 import React from "react";
 import { Card,Button }from "react-bootstrap";
+import {Link} from 'react-router-dom'
 
 const Cards = (props) => {
   return (
@@ -12,7 +13,7 @@ const Cards = (props) => {
       {props.Movie.desc}
       </Card.Text > <br/><br/>
       <h4 ><p style={{textAlign:"center"}}>   Rating : {props.Movie.rating} </p></h4>
-      <div className="mx-auto  d-flex w-100 "><Button className="mx-auto w-50" variant="outline-info"> Watch Now </Button>{' '}</div>
+  <Link to={`/movie-app/${props.Movie.name}`}><div className="mx-auto  d-flex w-100 "><Button className="mx-auto w-50" variant="outline-info"> Watch Trailer </Button></div></Link>
 
     </Card.Body>
      
