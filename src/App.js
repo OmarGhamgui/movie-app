@@ -3,8 +3,9 @@ import React from 'react'
 
 import Header from "./components/Header";
 import Main from "./components/Main";
+import Trailer from './components/Trailer'
 import {  useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router,  Route } from "react-router-dom";
 function App() {
   const [MovieList, setMovieList] = useState([
     {
@@ -78,29 +79,7 @@ function App() {
     setMovieList([...MovieList, { name, desc, rating, url }]);
 
 
-  const Trailer = ({match}) => {
-    const trailer = MovieList.find(({ name }) => name === match.params.Ntitle);
 
-    return (
-      <div>
-        <p className='d-flex flex-column my-5 mx-auto align-items-center'>
-    <h1 className='m-3 '>{trailer.name}</h1>
-          <iframe
-            width="853"
-            height="480"
-            src={trailer.trailer}
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-          <h4 style={{textAlign:'center', margin:70}}>{trailer.desc}</h4>
-          
-          
-        </p>{" "}
-       
-      </div>
-    );
-  }
   return (
     <Router>
       <div className="App">
@@ -118,7 +97,7 @@ function App() {
               <Main Movies={MovieList} Keyword={Keyword} Rating={Rating} />
             )}
           />
-          <Route path="/movie-app/:Ntitle" component={Trailer} />
+          <Route path="/movie-app/:Ntitle" component={(props)=><Trailer {...props} MovieList={MovieList}/>} />
       </div>
     </Router>
   );
