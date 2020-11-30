@@ -70,7 +70,7 @@ function App() {
     },
   ]);
   const [Keyword, setKeyword] = useState("");
-  const [Rating, setRating] = useState("0");
+  const [Rating, setRating] = useState(0);
   const Search = (word) => setKeyword(word);
   const SearchR = (el) => {
     setRating(el);
